@@ -4,7 +4,9 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import LazyLoder from "./Concepts/lazy_loading_&_code_splitting/LazyLoader";
 import LearnUseMemo from "./Concepts/learn_useMemo/LearnUseMemo";
+import FilterUsers from "./Concepts/learn_useMemo/FilterUsersMemo";
 function App() {
+  console.log("App.jsx rendered");
   return (
     <>
       <div>
@@ -17,7 +19,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       {/* <LazyLoder /> */}
-      <LearnUseMemo />
+      {/* <LearnUseMemo /> */}
+      <FilterUsers />
     </>
   );
 }
