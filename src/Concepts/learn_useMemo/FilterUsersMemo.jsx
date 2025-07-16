@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 
 function FilterUsers() {
   const [search, setSearch] = useState("");
+  const [sorted, setSorted] = useState(false);
   const [usersList, setUsersList] = useState([]);
 
   useEffect(() => {
@@ -22,10 +23,18 @@ function FilterUsers() {
   //important to include userList also in dependency otherwise list will not render on intial rendering of the component
   const filteredUsers = useMemo(() => {
     console.log("Filtering users...");
-    return usersList.filter((user) =>
+    const filtered = usersList.filter((user) =>
       user.firstName.toLowerCase().includes(search.toLowerCase())
     );
-  }, [search, usersList]);
+
+    if (sorted) {
+      //adding sorting functionality
+      return [...filtered].sort((a, b) =>
+        a.firstName.localeCompare(b.firstName)
+      );
+    }
+    return filtered;
+  }, [search, usersList, sorted]);
 
   return (
     <>
@@ -37,8 +46,11 @@ function FilterUsers() {
         onChange={(e) => setSearch(e.target.value)}
       />
       <ul>
+        <button onClick={() => setSorted(!sorted)}>sort</button>
         {filteredUsers.map((user) => (
-          <li key={user.id}>{user.firstName}</li>
+          <li key={user.id} onClick={() => console.log(user)}>
+            {user.firstName}
+          </li>
         ))}
       </ul>
     </>
